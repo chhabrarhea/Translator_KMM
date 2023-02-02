@@ -3,7 +3,7 @@ plugins {
     kotlin("native.cocoapods")
     id("com.android.library")
     kotlin("plugin.serialization") version Dependencies.kotlinVersion
-    id("com.squareup.sqldelight")
+
 }
 
 version = "1.0"

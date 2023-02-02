@@ -5,6 +5,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DisposableHandle
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import kotlin.properties.Delegates
 
 actual open class CommonFlow<T> actual constructor(
     private val source: Flow<T>
