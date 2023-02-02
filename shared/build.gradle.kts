@@ -3,7 +3,7 @@ plugins {
     kotlin("native.cocoapods")
     id("com.android.library")
     kotlin("plugin.serialization") version Dependencies.kotlinVersion
-
+    id("com.squareup.sqldelight")
 }
 
 version = "1.0"
@@ -79,5 +79,11 @@ android {
     defaultConfig {
         minSdk = 23
         targetSdk = 32
+    }
+}
+sqldelight {
+    database("TranslateDatabase") {
+        packageName = "com.rhea.translator.database"
+        sourceFolders = listOf("sqldelight")
     }
 }
