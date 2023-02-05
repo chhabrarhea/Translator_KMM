@@ -74,15 +74,15 @@ kotlin {
 }
 
 android {
-    compileSdk = 32
+    compileSdk = 33
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
         minSdk = 23
-        targetSdk = 32
+        targetSdk = 33
     }
 }
 sqldelight {
-    database("TranslateDatabase") {
+    database("TranslatorDatabase") {
         packageName = "com.rhea.translator.database"
         sourceFolders = listOf("sqldelight")
     }
