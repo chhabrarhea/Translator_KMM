@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.rhea.translator.android.R
 import com.rhea.translator.android.core.theme.LightBlue
-import com.rhea.translator.presentation.Colors
 import com.rhea.translator.presentation.UILanguage
 
 @Composable
