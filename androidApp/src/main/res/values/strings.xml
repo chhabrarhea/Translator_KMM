@@ -3,4 +3,8 @@
     <string name="close">Close</string>
     <string name="open">Open</string>
     <string name="swap_languages">Swap Languages</string>
+    <string name="translate_hint">Enter text to translate</string>
+    <string name="translate">Translate</string>
+    <string name="copy">Copy</string>
+    <string name="play">Play</string>
 </resources>
