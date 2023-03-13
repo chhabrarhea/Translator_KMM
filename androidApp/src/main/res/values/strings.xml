@@ -7,4 +7,5 @@
     <string name="translate">Translate</string>
     <string name="copy">Copy</string>
     <string name="play">Play</string>
+    <string name="copied_to_clipboard">Copied to clipboard!</string>
 </resources>
