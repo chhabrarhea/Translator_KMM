@@ -31,7 +31,7 @@ fun TranslateScreen(
     onEvent: (TranslateEvent) -> Unit
 ) {
     val context = LocalContext.current
-    Scaffold() {
+    Scaffold {
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
