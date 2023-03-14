@@ -1,5 +1,6 @@
 package com.rhea.translator.android.translate.presentation
 
+import android.speech.tts.TextToSpeech
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -21,8 +22,10 @@ import androidx.compose.ui.unit.dp
 import com.rhea.translator.android.R
 import com.rhea.translator.android.translate.presentation.components.LanguageDropDown
 import com.rhea.translator.android.translate.presentation.components.TranslateTextField
+import com.rhea.translator.android.translate.presentation.components.rememberTextToSpeech
 import com.rhea.translator.presentation.TranslateEvent
 import com.rhea.translator.presentation.TranslateState
+import java.util.*
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -67,6 +70,7 @@ fun TranslateScreen(
                 }
             }
             item {
+                val tts = rememberTextToSpeech()
                 val clipboardManager = LocalClipboardManager.current
                 val keyboardController = LocalSoftwareKeyboardController.current
                 TranslateTextField(
@@ -96,7 +100,13 @@ fun TranslateScreen(
                         onEvent(TranslateEvent.CloseTranslation)
                     },
                     onSpeakerClick = {
-
+                        tts.language = state.toLanguage.toLocale() ?: Locale.ENGLISH
+                        tts.speak(
+                            state.toText,
+                            TextToSpeech.QUEUE_FLUSH,
+                            null,
+                            null
+                        )
                     },
                     onTextFieldClick = {
                         onEvent(TranslateEvent.EditTranslation)
