@@ -14,6 +14,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -28,6 +29,7 @@ import com.rhea.translator.android.translate.presentation.components.LanguageDro
 import com.rhea.translator.android.translate.presentation.components.TranslateHistoryItem
 import com.rhea.translator.android.translate.presentation.components.TranslateTextField
 import com.rhea.translator.android.translate.presentation.components.rememberTextToSpeech
+import com.rhea.translator.domain.remote.TranslateError
 import com.rhea.translator.presentation.TranslateEvent
 import com.rhea.translator.presentation.TranslateState
 import java.util.*
@@ -39,6 +41,20 @@ fun TranslateScreen(
     onEvent: (TranslateEvent) -> Unit
 ) {
     val context = LocalContext.current
+    LaunchedEffect(key1 = state.error) {
+        val message = when(state.error) {
+            TranslateError.NETWORK_ERROR -> context.getString(R.string.error_service_unavailable)
+            TranslateError.CLIENT_ERROR -> context.getString(R.string.client_error)
+            TranslateError.SERVER_ERROR -> context.getString(R.string.server_error)
+            TranslateError.UNKNOWN_ERROR -> context.getString(R.string.unknown_error)
+            else -> null
+        }
+        message?.let {
+            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+            onEvent(TranslateEvent.OnErrorSeen)
+        }
+    }
+
     Scaffold {
         LazyColumn(
             modifier = Modifier
