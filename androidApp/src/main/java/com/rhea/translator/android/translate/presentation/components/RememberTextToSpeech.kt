@@ -12,6 +12,9 @@ fun rememberTextToSpeech(): TextToSpeech {
     val textToSpeech = remember {
         TextToSpeech(context, null)
     }
+    /**
+     * @see 'https://developer.android.com/jetpack/compose/side-effects'
+     */
     DisposableEffect(key1 = textToSpeech){
         onDispose {
             textToSpeech.stop()
