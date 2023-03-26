@@ -1,11 +1,7 @@
 package com.rhea.translator.android.translate.presentation.components
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -33,35 +29,36 @@ fun LanguageDropDown(
 ) {
 
     Box(modifier = modifier) {
+        Row(
+            modifier = Modifier
+                .padding(16.dp)
+                .clickable { onClick.invoke() },
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            AsyncImage(
+                model = selectedLanguage.flagRes,
+                contentDescription = selectedLanguage.language.langName,
+                modifier = Modifier.size(30.dp)
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(text = selectedLanguage.language.langName, color = LightBlue)
+            Icon(
+                imageVector = if (!isOpen) Icons.Default.ArrowDropDown else Icons.Default.ArrowDropUp,
+                contentDescription = if (isOpen) {
+                    stringResource(id = R.string.close)
+                } else {
+                    stringResource(id = R.string.open)
+                },
+                tint = LightBlue,
+                modifier = Modifier.size(30.dp)
+            )
+        }
         DropdownMenu(expanded = isOpen, onDismissRequest = onDismiss) {
             UILanguage.allLanguages.forEach { language ->
                 LanguageDropDownItem(
                     language = language,
                     onClick = { onSelectLanguage.invoke(language) },
                     modifier = Modifier.fillMaxWidth()
-                )
-            }
-            Row(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .clickable { onClick.invoke() },
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                AsyncImage(
-                    model = selectedLanguage.flagRes,
-                    contentDescription = selectedLanguage.language.langName,
-                    modifier = Modifier.size(30.dp)
-                )
-                Text(text = selectedLanguage.language.langName, color = LightBlue)
-                Icon(
-                    imageVector = if (!isOpen) Icons.Default.ArrowDropDown else Icons.Default.ArrowDropUp,
-                    contentDescription = if (isOpen) {
-                        stringResource(id = R.string.close)
-                    } else {
-                        stringResource(id = R.string.open)
-                    },
-                    tint = LightBlue,
-                    modifier = Modifier.size(30.dp)
                 )
             }
         }

@@ -2,6 +2,7 @@ package com.rhea.translator.android.translate.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Text
@@ -20,7 +21,8 @@ fun LanguageDropDownItem(
     DropdownMenuItem(onClick = onClick, modifier = modifier) {
         Image(
             painter = painterResource(id = language.flagRes),
-            contentDescription = language.language.langName
+            contentDescription = language.language.langName,
+            modifier = Modifier.size(40.dp)
         )
         Spacer(modifier = Modifier.width(16.dp))
         Text(text = language.language.langName)
