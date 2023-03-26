@@ -22,10 +22,13 @@ import com.rhea.translator.android.core.theme.TranslatorTheme
 import com.rhea.translator.android.translate.presentation.AndroidTranslateViewModel
 import com.rhea.translator.android.translate.presentation.TranslateScreen
 import com.rhea.translator.presentation.TranslateEvent
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             TranslatorTheme {
                 Surface(
