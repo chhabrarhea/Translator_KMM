@@ -7,15 +7,47 @@
 //
 
 import SwiftUI
+import shared
 
 struct TranslateScreen: View {
+    private var historyDataSource: HistoryDataSource
+    private var translateUseCase: Translate
+    @ObservedObject var viewModel: IOSTranslateViewModel
+    
+    init(historyDataSource: HistoryDataSource, translateUseCase: Translate, viewModel: IOSTranslateViewModel) {
+        self.historyDataSource = historyDataSource
+        self.translateUseCase = translateUseCase
+        self.viewModel = IOSTranslateViewModel(historyDataSource: historyDataSource, translateUseCase: translateUseCase)
+    }
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            List {
+                HStack {
+                    LanguageDropDown(
+                        selectedLanguage: viewModel.state.fromLanguage,
+                        onLanguageSelected: { language in viewModel.onEvent(event: TranslateEvent.ChooseFromLanguage(language: language))},
+                        isOpen: viewModel.state.isChoosingFromLanguage)
+                    Spacer()
+                    SwapLanguageButton(onClick: {viewModel.onEvent(event: TranslateEvent.SwapLanguages())})
+                    Spacer()
+                    LanguageDropDown(
+                        selectedLanguage: viewModel.state.toLanguage,
+                        onLanguageSelected: { language in viewModel.onEvent(event: TranslateEvent.ChooseToLanguage(language: language))},
+                        isOpen: viewModel.state.isChoosingToLanguage)
+                }
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.background)
+            }
+            .listStyle(.plain)
+            .buttonStyle(.plain)
+        }
+        .onAppear {
+            viewModel.startObserving()
+        }
+        .onDisappear {
+            viewModel.dispose()
+        }
     }
 }
 
-struct TranslateScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        TranslateScreen()
-    }
-}
