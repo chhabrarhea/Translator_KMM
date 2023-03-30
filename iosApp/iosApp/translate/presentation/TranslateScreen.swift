@@ -14,7 +14,7 @@ struct TranslateScreen: View {
     private var translateUseCase: Translate
     @ObservedObject var viewModel: IOSTranslateViewModel
     
-    init(historyDataSource: HistoryDataSource, translateUseCase: Translate, viewModel: IOSTranslateViewModel) {
+    init(historyDataSource: HistoryDataSource, translateUseCase: Translate) {
         self.historyDataSource = historyDataSource
         self.translateUseCase = translateUseCase
         self.viewModel = IOSTranslateViewModel(historyDataSource: historyDataSource, translateUseCase: translateUseCase)
