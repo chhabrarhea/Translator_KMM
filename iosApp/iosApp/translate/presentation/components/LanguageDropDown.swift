@@ -19,7 +19,7 @@ struct LanguageDropDown: View {
                 ForEach(UILanguage.Companion().allLanguages, id: \.self.language.langCode) { language in
                     LanguageDropDownItem(
                         language: language,
-                        onClick: { onLanguageSelected(selectedLanguage)}
+                        onClick: { onLanguageSelected(language) }
                     )
                 }
             }
