@@ -1,11 +1,7 @@
 package com.rhea.translator.domain.utils
 
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.DisposableHandle
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
-import kotlin.properties.Delegates
 
 actual open class CommonFlow<T> actual constructor(
     private val source: Flow<T>
@@ -19,6 +15,15 @@ actual open class CommonFlow<T> actual constructor(
         val job = coroutineScope.launch(dispatcher) {
             source.collect(onCollect)
         }
-        return DisposableHandle { job.cancel() }
+        return object : DisposableHandle {
+            override fun dispose() {
+                job.cancel()
+            }
+        }
+    }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    fun collect(onCollect: (T) -> Unit) : DisposableHandle {
+        return subscribe(GlobalScope, Dispatchers.Main, onCollect)
     }
 }
