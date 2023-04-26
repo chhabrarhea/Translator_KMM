@@ -9,6 +9,7 @@
 import SwiftUI
 import shared
 
+/// <#Description#>dd
 struct TranslateScreen: View {
     private var historyDataSource: HistoryDataSource
     private var translateUseCase: Translate
@@ -47,7 +48,9 @@ struct TranslateScreen: View {
                     isTranslating: viewModel.state.isTranslating,
                     fromLanguage: viewModel.state.fromLanguage,
                     toLanguage: viewModel.state.toLanguage,
-                    onTranslateEvent: { viewModel.onEvent(event: $0) }
+                    onTranslateEvent: { event in
+                        viewModel.onEvent(event: event)
+                    }
                 )
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.background)
