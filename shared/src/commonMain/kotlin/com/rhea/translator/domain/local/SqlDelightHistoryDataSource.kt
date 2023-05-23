@@ -27,7 +27,7 @@ class SqlDelightHistoryDataSource (db: TranslatorDatabase): HistoryDataSource {
 
     override suspend fun insertHistory(item: HistoryItem) {
         queries.insertHistoryEntity(
-            item.id,
+            item.id ?: 0,
             item.fromLanguageCode,
             item.fromText,
             item.toLanguageCode,
