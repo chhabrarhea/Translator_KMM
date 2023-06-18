@@ -1,5 +1,5 @@
 CREATE TABLE HistoryEntity(
-id Integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+id INTEGER PRIMARY KEY AUTOINCREMENT,
 fromLanguageCode Text NOT NULL,
 fromText Text NOT NULL,
 toLanguageCode Text NOT NULL,
