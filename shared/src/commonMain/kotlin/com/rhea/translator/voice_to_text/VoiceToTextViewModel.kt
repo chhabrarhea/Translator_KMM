@@ -57,11 +57,11 @@ class VoiceToTextViewModel(
     }
 
     private fun toggleRecording(languageCode: String) {
+        _state.update { it.copy(powerRatios = emptyList()) }
         parser.cancel()
-        if(state.value.displayState == DisplayState.SPEAKING) {
+        if(state.value.displayState == DisplayState.SPEAKING)
             parser.stopListening()
-        } else {
+        else
             parser.startListening(languageCode)
-        }
     }
 }
