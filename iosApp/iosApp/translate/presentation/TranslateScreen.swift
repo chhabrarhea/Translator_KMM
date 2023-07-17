@@ -78,7 +78,15 @@ struct TranslateScreen: View {
             
             VStack {
                 Spacer()
-                NavigationLink(destination: Text("Voice to Text")){
+                NavigationLink(
+                    destination: VoiceToTextScreen(
+                        onResult: { spokenText in
+                            viewModel.onEvent(event: TranslateEvent.SubmitVoiceResult(result: spokenText))
+                        },
+                        parser: IOSVoiceToTextParser(),
+                        languageCode: viewModel.state.fromLanguage.language.langCode
+                    )
+                ){
                     ZStack {
                         Circle()
                             .foregroundColor(.primaryColor)

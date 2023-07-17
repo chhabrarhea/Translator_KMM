@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 
 class VoiceToTextViewModel(
     private val parser: VoiceToTextParser,
-    private val viewModelScope: CoroutineScope =  CoroutineScope(Dispatchers.Main)
+    private var viewModelScope: CoroutineScope?
 ) {
     private val _state = MutableStateFlow(VoiceToTextState())
     val state = _state.combine(parser.state) { state, voiceResult ->
@@ -27,7 +27,9 @@ class VoiceToTextViewModel(
         )
 
     }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), VoiceToTextState())
+        .stateIn(
+            viewModelScope ?:  CoroutineScope(Dispatchers.Main),
+            SharingStarted.WhileSubscribed(5000), VoiceToTextState())
         .toCommonStateFlow()
 
     private suspend fun setPowerRatio() {
@@ -40,7 +42,7 @@ class VoiceToTextViewModel(
         setPowerRatio()
     }
 
-    init { viewModelScope.launch { setPowerRatio() } }
+    init { viewModelScope?.launch { setPowerRatio() } }
 
     fun onEvent(event: VoiceToTextEvent) {
         when(event) {
